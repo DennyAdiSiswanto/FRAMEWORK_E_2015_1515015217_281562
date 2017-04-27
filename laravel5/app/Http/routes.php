@@ -10,6 +10,12 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+use Illuminate\Http\Request;
+Route::get('/login','SesiController@form');
+Route::post('/login','SesiController@validasi');
+Route::get('/logout','SesiController@logout');
+Route::get('SesiController@index');	
+Route::group(['middleware'=>'AuthentifikasiUser'],function(){});
 
 
 Route::get('/',function ()
@@ -23,7 +29,6 @@ Route::get('/',function ()
 Route::get('ujiHas','RelationshipRebornController@ujiHas');
 Route::get('ujiDoesntHave','RelationshipRebornController@ujiDoesntHave');
 
-use Illuminate\Http\Request;
 Route::get('form',function ()
 {
 	echo Form::open(['url'=>'/']).
@@ -36,6 +41,8 @@ Route::post('/',function (Request $request)
 {
 	echo "Hasil dari form input tadi nama : ".$request->nama;
 });
+
+
 
 Route::get('jadwal_matakuliah','jadwalmatakuliahController@awal');
 Route::get('jadwal_matakuliah/tambah','jadwalmatakuliahController@tambah');
